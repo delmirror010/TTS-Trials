@@ -266,6 +266,8 @@ pub fn clean_msg(
         });
 
     let attached_file_format = attachments_to_format(attachments);
+
+    // add PK filter here 
     let said_name = announce_name.then(|| {
         nickname
             .or(member_nick)
