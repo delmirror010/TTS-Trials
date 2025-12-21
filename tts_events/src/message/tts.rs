@@ -65,6 +65,8 @@ pub(crate) async fn process_tts_msg(
             .get([guild_id.into(), message.author.id.into()])
             .await?;
 
+        // insert nickname override here?
+
         content = clean_msg(
             &content,
             &message.author,
@@ -302,6 +304,9 @@ fn run_checks(
             }
         }
     }
+
+  // inset content suffix strip here
+        
 
     Ok(Some((content, to_autojoin)))
 }
