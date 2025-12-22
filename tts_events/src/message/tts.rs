@@ -59,16 +59,16 @@ pub(crate) async fn process_tts_msg(
         let member_nick = match &message.member {
             Some(member) => {
                 // Check roles if member data is already present
-                if member.roles.contains(role_cheshire) {
+                if member.roles.contains(&role_cheshire) {
                     has_special_role = true;
                     get_member_nickname(shorthand_search(&message.content), role_cheshire)
-                } else if member.roles.contains(role_lost_souls) {
+                } else if member.roles.contains(&role_lost_souls) {
                     has_special_role = true;
                     get_member_nickname(shorthand_search(&message.content), role_lost_souls)
-                } else if member.roles.contains(role_hearts_queen) {
+                } else if member.roles.contains(&role_hearts_queen) {
                     has_special_role = true;
                     get_member_nickname(shorthand_search(&message.content), role_hearts_queen)
-                } else if member.role.contains(role_dream_end) {
+                } else if member.role.contains(&role_dream_end) {
                     // toggles the check
                     has_special_role = true;
                     // returns Option<&str> 
@@ -76,47 +76,40 @@ pub(crate) async fn process_tts_msg(
                 } else {   
                     member.nick.as_deref()
                 }    
-            }, // did to here thus far 
+            },
             None if message.webhook_id.is_none() && !is_ephemeral => {
                 // Fetch the full member object from Discord
                  m = guild_id.member(ctx, message.author.id).await?;
                 // Check roles from the freshly fetched data
-                has_special_role = m.roles.contains(&special_role_id);
-                if has_special_role {
+                if m.roles.contains(&role_cheshire) {
+                    has_special_role = true;
+                    get_member_nickname(shorthand_search(&message.content), role_cheshire)
+                } else if m.roles.contains(&role_lost_souls) {
+                    has_special_role = true;
+                    get_member_nickname(shorthand_search(&message.content), role_lost_souls)
+                } else if m.roles.contains(&role_hearts_queen) {
+                    has_special_role = true;
+                    get_member_nickname(shorthand_search(&message.content), role_hearts_queen)
+                } else if m.roles.contains(&role_dream_end) {
+                    has_special_role = true;
+                    get_member_nickname(shorthand_search(&message.content), role_dream_end)
                 } else {
                     m.nick.as_deref()
                 }
             }
             None => None,
         };
-
-        // end of the trialing
-
-    let member_nick = match &message.member {
-        Some(member) => {
-            // Check roles from the message member data
-            has_special_role = member.roles.contains(&special_role_id);
-            member.nick.as_deref()
-        },
-        None => None,
-    };
-
-    // Now you can use 'has_special_role' later in your -something check!
-    if content.ends_with("-something") && has_special_role {
-        content = content.replace("-something", "");
-    }
-
-        
-
-        let m;
-        let member_nick = match &message.member {
-            Some(member) => member.nick.as_deref(),
-            None if message.webhook_id.is_none() && !is_ephemeral => {
-                m = guild_id.member(ctx, message.author.id).await?;
-                m.nick.as_deref()
-            }
-            None => None,
-        };
+     
+//ORIGINAL CODE
+   //     let m;
+    //    let member_nick = match &message.member {
+    //        Some(member) => member.nick.as_deref(),
+    //        None if message.webhook_id.is_none() && !is_ephemeral => {
+   //             m = guild_id.member(ctx, message.author.id).await?;
+   //             m.nick.as_deref()
+   //         }
+   //         None => None,
+   //     };
 
         let (voice, mode) = data
             .parse_user_or_guild_with_premium(message.author.id, Some((guild_id, is_premium)))
