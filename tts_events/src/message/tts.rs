@@ -49,30 +49,27 @@ pub(crate) async fn process_tts_msg(
         // Insert system HERE!!! WIPPPPPPP
         // Define the ID of the role you are looking for
 
-        let role_cheshire = serenity::model::id::RoleId::new(1411815911614189578);
-        let role_lost_souls = serenity::model::id::RoleId::new(1411813765913120810);
-        let role_hearts_queen = serenity::model::id::RoleId::new(1411960237673414707);
-        let role_dream_end = serenity::model::id::RoleId::new(1415600828076785705);
-
         let mut has_special_role = false;
         let m;
+
+        //function this stuff, capital is the correct thing
         let member_nick = match &message.member {
             Some(member) => {
                 // Check roles if member data is already present
-                if member.roles.contains(&role_cheshire) {
+                if member.roles.contains(&ROLE_CHESHIRE) {
                     has_special_role = true;
-                    get_member_nickname(shorthand_search(&message.content), role_cheshire)
-                } else if member.roles.contains(&role_lost_souls) {
+                    get_member_nickname(shorthand_search(&message.content), ROLE_CHESHIRE)
+                } else if member.roles.contains(&ROLE_LOST_SOULS) {
                     has_special_role = true;
-                    get_member_nickname(shorthand_search(&message.content), role_lost_souls)
-                } else if member.roles.contains(&role_hearts_queen) {
+                    get_member_nickname(shorthand_search(&message.content), ROLE_LOST_SOULS)
+                } else if member.roles.contains(&ROLE_HEARTS_QUEEN) {
                     has_special_role = true;
-                    get_member_nickname(shorthand_search(&message.content), role_hearts_queen)
-                } else if member.role.contains(&role_dream_end) {
+                    get_member_nickname(shorthand_search(&message.content), ROLE_HEARTS_QUEEN)
+                } else if member.role.contains(&ROLE_DREAM_END) {
                     // toggles the check
                     has_special_role = true;
                     // returns Option<&str> 
-                    get_member_nickname(shorthand_search(&message.content), role_dream_end)
+                    get_member_nickname(shorthand_search(&message.content), ROLE_DREAM_END)
                 } else {   
                     member.nick.as_deref()
                 }    
