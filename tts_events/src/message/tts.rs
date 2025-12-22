@@ -62,6 +62,7 @@ pub(crate) async fn process_tts_msg(
                 // need to add name retrieval
                 if member.roles.contains(role_cheshire) {
                     has_special_role = true;
+                    // regex ahhhhh
                 } else if member.roles.contains(role_lost_souls) {
                     has_special_role = true;
                 } else if member.roles.contains(role_hearts_queen) {
