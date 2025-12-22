@@ -59,16 +59,20 @@ pub(crate) async fn process_tts_msg(
         let member_nick = match &message.member {
             Some(member) => {
                 // Check roles if member data is already present
-                // need to add name retrieval
                 if member.roles.contains(role_cheshire) {
                     has_special_role = true;
-                    // regex ahhhhh
+                    get_member_nickname(shorthand_search(&message.content), role_cheshire)
                 } else if member.roles.contains(role_lost_souls) {
                     has_special_role = true;
+                    get_member_nickname(shorthand_search(&message.content), role_lost_souls)
                 } else if member.roles.contains(role_hearts_queen) {
                     has_special_role = true;
+                    get_member_nickname(shorthand_search(&message.content), role_hearts_queen)
                 } else if member.role.contains(role_dream_end) {
+                    // toggles the check
                     has_special_role = true;
+                    // returns Option<&str> 
+                    get_member_nickname(shorthand_search(&message.content), role_dream_end)
                 } else {   
                     member.nick.as_deref()
                 }    
