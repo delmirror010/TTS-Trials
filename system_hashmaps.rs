@@ -18,7 +18,7 @@ let mut lost_souls_sys = HashMap::new();
 let mut bunni_sys = HashMap::new();
 
 // gets member name from message author role ID and suffix
-pub fn get_member_nickname(shorthand: &str, msg_author_role: &RoleId) -> Option<&'static str> {
+pub fn get_member_nickname(shorthand: &str, msg_author_role: &RoleId) -> Option<&str> {
     // Check if the specific role exists in the system
     let spec_sys = role_sys.get(role_id)?; 
 
