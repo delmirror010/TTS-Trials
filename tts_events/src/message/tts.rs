@@ -49,16 +49,26 @@ pub(crate) async fn process_tts_msg(
         // Insert system HERE!!! WIPPPPPPP
         // Define the ID of the role you are looking for
 
-        let special_role_id = serenity::all::RoleId::new(1234567890);
+        let role_cheshire = serenity::model::id::RoleId::new(1411815911614189578);
+        let role_lost_souls = serenity::model::id::RoleId::new(1411813765913120810);
+        let role_hearts_queen = serenity::model::id::RoleId::new(1411960237673414707);
+        let role_dream_end = serenity::model::id::RoleId::new(1415600828076785705);
+
         let mut has_special_role = false;
         let m;
         let member_nick = match &message.member {
             Some(member) => {
                 // Check roles if member data is already present
-                has_special_role = member.roles.contains(&special_role_id);
-                if has_special_role {
-                    // member.nick.as_deref() into the system member nicknams
-                else {   
+                // need to add name retrieval
+                if member.roles.contains(role_cheshire) {
+                    has_special_role = true;
+                } else if member.roles.contains(role_lost_souls) {
+                    has_special_role = true;
+                } else if member.roles.contains(role_hearts_queen) {
+                    has_special_role = true;
+                } else if member.role.contains(role_dream_end) {
+                    has_special_role = true;
+                } else {   
                     member.nick.as_deref()
                 }    
             }, // did to here thus far 
@@ -67,7 +77,10 @@ pub(crate) async fn process_tts_msg(
                  m = guild_id.member(ctx, message.author.id).await?;
                 // Check roles from the freshly fetched data
                 has_special_role = m.roles.contains(&special_role_id);
-                m.nick.as_deref()
+                if has_special_role {
+                } else {
+                    m.nick.as_deref()
+                }
             }
             None => None,
         };
