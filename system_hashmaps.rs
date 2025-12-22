@@ -2,6 +2,11 @@ use std::collections::HashMap;
 use serenity::model::id::RoleId;
 use std::sync::LazyLock;
 
+pub const ROLE_CHESHIRE: RoleId = RoleId::new(1411815911614189578);
+pub const ROLE_LOST_SOULS: RoleId = RoleId::new(1411813765913120810);
+pub const ROLE_HEARTS_QUEEN: RoleId = RoleId::new(1411960237673414707);
+pub const ROLE_DREAM_END: RoleId = RoleId::new(1415600828076785705);
+
 let mut role_sys = HashMap::new();
 role_sys.insert(RoleId::new(1415600828076785705), a_sys);
 role_sys.insert(RoleId::new(1411815911614189578), angel_sys);
