@@ -46,6 +46,50 @@ pub(crate) async fn process_tts_msg(
             .flags
             .is_some_and(|f| f.contains(serenity::model::channel::MessageFlags::EPHEMERAL));
 
+        // Insert system HERE!!! WIPPPPPPP
+        // Define the ID of the role you are looking for
+
+        let special_role_id = serenity::all::RoleId::new(1234567890);
+        let mut has_special_role = false;
+        let m;
+        let member_nick = match &message.member {
+            Some(member) => {
+                // Check roles if member data is already present
+                has_special_role = member.roles.contains(&special_role_id);
+                if has_special_role {
+                    // member.nick.as_deref() into the system member nicknams
+                else {   
+                    member.nick.as_deref()
+                }    
+            }, // did to here thus far 
+            None if message.webhook_id.is_none() && !is_ephemeral => {
+                // Fetch the full member object from Discord
+                 m = guild_id.member(ctx, message.author.id).await?;
+                // Check roles from the freshly fetched data
+                has_special_role = m.roles.contains(&special_role_id);
+                m.nick.as_deref()
+            }
+            None => None,
+        };
+
+        // end of the trialing
+
+    let member_nick = match &message.member {
+        Some(member) => {
+            // Check roles from the message member data
+            has_special_role = member.roles.contains(&special_role_id);
+            member.nick.as_deref()
+        },
+        None => None,
+    };
+
+    // Now you can use 'has_special_role' later in your -something check!
+    if content.ends_with("-something") && has_special_role {
+        content = content.replace("-something", "");
+    }
+
+        
+
         let m;
         let member_nick = match &message.member {
             Some(member) => member.nick.as_deref(),
