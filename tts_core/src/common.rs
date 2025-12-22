@@ -267,6 +267,8 @@ pub fn clean_msg(
 
     let attached_file_format = attachments_to_format(attachments);
 
+    // insert system clause here
+
     // add PK filter here 
     let said_name = announce_name.then(|| {
         nickname
