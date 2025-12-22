@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 use serenity::model::id::RoleId;
+use std::sync::LazyLock;
 
 let mut role_sys = HashMap::new();
 role_sys.insert(RoleId::new(1415600828076785705), a_sys);
@@ -25,7 +26,15 @@ pub fn get_member_nickname(shorthand: &str, msg_author_role: &RoleId) -> Option<
     // The .get() here returns an Option to match the return type
     spec_sys.get(shorthand).copied()
 }
-  
-  
-}
 
+static SUFFIX_RE: LazyLock<Regex> = LazyLock::new(|| {
+    Regex::new(r"\s-([a-zA-Z]+)$").expect("Invalid regex")
+});
+
+pub fn shorthand_search(msg: &str) -> Option<&str> {
+    // Finds the suffix match
+    let caps = SUFFIX_RE.captures(msg)?;
+    // Returns reference to suffix e.g. " -y"
+    Some(caps[0]) 
+}
+    
