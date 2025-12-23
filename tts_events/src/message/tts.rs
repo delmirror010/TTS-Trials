@@ -78,18 +78,18 @@ pub(crate) async fn process_tts_msg(
                 // Fetch the full member object from Discord
                  m = guild_id.member(ctx, message.author.id).await?;
                 // Check roles from the freshly fetched data
-                if m.roles.contains(&role_cheshire) {
+                if m.roles.contains(&ROLE_CHESHIRE) {
                     has_special_role = true;
-                    get_member_nickname(shorthand_search(&message.content), role_cheshire)
-                } else if m.roles.contains(&role_lost_souls) {
+                    get_member_nickname(shorthand_search(&message.content), ROLE_CHESHIRE)
+                } else if m.roles.contains(&ROLE_LOST_SOULS) {
                     has_special_role = true;
-                    get_member_nickname(shorthand_search(&message.content), role_lost_souls)
-                } else if m.roles.contains(&role_hearts_queen) {
+                    get_member_nickname(shorthand_search(&message.content), ROLE_LOST_SOULS)
+                } else if m.roles.contains(&ROLE_HEARTS_QUEEN) {
                     has_special_role = true;
-                    get_member_nickname(shorthand_search(&message.content), role_hearts_queen)
-                } else if m.roles.contains(&role_dream_end) {
+                    get_member_nickname(shorthand_search(&message.content), ROLE_HEARTS_QUEEN)
+                } else if m.roles.contains(&ROLE_DREAM_END) {
                     has_special_role = true;
-                    get_member_nickname(shorthand_search(&message.content), role_dream_end)
+                    get_member_nickname(shorthand_search(&message.content), ROLE_DREAM_END)
                 } else {
                     m.nick.as_deref()
                 }
