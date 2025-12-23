@@ -7,6 +7,14 @@ pub const ROLE_LOST_SOULS: RoleId = RoleId::new(1411813765913120810);
 pub const ROLE_HEARTS_QUEEN: RoleId = RoleId::new(1411960237673414707);
 pub const ROLE_DREAM_END: RoleId = RoleId::new(1415600828076785705);
 
+// A public global list of all "Systems" roles
+pub static SPEC_ROLES: &[RoleId] = &[
+    ROLE_CHESHIRE,
+    ROLE_LOST_SOULS,
+    ROLE_HEARTS_QUEEN,
+    ROLE_DREAM_END,
+];
+
 let mut role_sys = HashMap::new();
 role_sys.insert(RoleId::new(1415600828076785705), a_sys);
 role_sys.insert(RoleId::new(1411815911614189578), angel_sys);
