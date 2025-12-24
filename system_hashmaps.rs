@@ -51,8 +51,21 @@ pub fn shorthand_search(msg: &str) -> Option<&str> {
     Some(caps[0]) 
 }
     
-pub fn exact_role_check(m: member) {
-    if 
+pub fn exact_role_check(member: member) {
+     if member.roles.contains(&ROLE_CHESHIRE) {
+                    has_special_role = true;
+                    get_member_nickname(shorthand_search(&message.content), ROLE_CHESHIRE)
+                } else if member.roles.contains(&ROLE_LOST_SOULS) {
+                    has_special_role = true;
+                    get_member_nickname(shorthand_search(&message.content), ROLE_LOST_SOULS)
+                } else if member.roles.contains(&ROLE_HEARTS_QUEEN) {
+                    has_special_role = true;
+                    get_member_nickname(shorthand_search(&message.content), ROLE_HEARTS_QUEEN)
+                } else if member.role.contains(&ROLE_DREAM_END) {
+                    // toggles the check
+                    has_special_role = true;
+                    // returns Option<&str> 
+                    get_member_nickname(shorthand_search(&message.content), ROLE_DREAM_END)
 }
 
 
