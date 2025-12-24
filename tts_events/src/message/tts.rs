@@ -55,21 +55,9 @@ pub(crate) async fn process_tts_msg(
         //function this stuff, capital is the correct thing
         let member_nick = match &message.member {
             Some(member) => {
-                // Check roles if member data is already present
-                if member.roles.contains(&ROLE_CHESHIRE) {
-                    has_special_role = true;
+                has_special_role = member.roles.iter().any(|role_id| SPEC_ROLES.contains(role_id));
+                if has_special_role {
                     get_member_nickname(shorthand_search(&message.content), ROLE_CHESHIRE)
-                } else if member.roles.contains(&ROLE_LOST_SOULS) {
-                    has_special_role = true;
-                    get_member_nickname(shorthand_search(&message.content), ROLE_LOST_SOULS)
-                } else if member.roles.contains(&ROLE_HEARTS_QUEEN) {
-                    has_special_role = true;
-                    get_member_nickname(shorthand_search(&message.content), ROLE_HEARTS_QUEEN)
-                } else if member.role.contains(&ROLE_DREAM_END) {
-                    // toggles the check
-                    has_special_role = true;
-                    // returns Option<&str> 
-                    get_member_nickname(shorthand_search(&message.content), ROLE_DREAM_END)
                 } else {   
                     member.nick.as_deref()
                 }    
