@@ -50,7 +50,8 @@ pub fn shorthand_search(msg: &str) -> Option<&str> {
     // Returns reference to suffix e.g. " -y"
     Some(caps[0]) 
 }
-    
+
+// finds the exact "system" role you have and returns the id
 pub fn returns_exact_role(member: &Member) -> Option<RoleId> {
      if member.roles.contains(&ROLE_CHESHIRE) {
          Some(ROLE_CHESHIRE)
