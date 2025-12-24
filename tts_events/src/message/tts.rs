@@ -97,8 +97,14 @@ pub(crate) async fn process_tts_msg(
             .get([guild_id.into(), message.author.id.into()])
             .await?;
 
-        // insert nickname override here?
-
+        // given special role, text cleanup module here
+        let mut content = message.content.clone();
+        if has_special_role {
+            if let Some(sh) = shorthand {
+                let pattern = format!(" -{}", sh);
+                content = content.replace(&pattern, "");
+            }
+        }
         content = clean_msg(
             &content,
             &message.author,
