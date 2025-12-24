@@ -50,14 +50,15 @@ pub(crate) async fn process_tts_msg(
         // Define the ID of the role you are looking for
 
         let mut has_special_role = false;
+        let shorthand = shorthand_search(&message.content);
         let m;
-
-        //function this stuff, capital is the correct thing
         let member_nick = match &message.member {
             Some(member) => {
-                has_special_role = member.roles.iter().any(|role_id| SPEC_ROLES.contains(role_id));
-                if has_special_role {
-                    get_member_nickname(shorthand_search(&message.content), ROLE_CHESHIRE)
+                // Tries to find exactly which special role they have
+                if let Some(sys_role_id) = returns_exact_role(member) {
+                    has_special_role = true;
+                    // .or() used to fallback to their normal nick if no shorthand is used
+                    get_member_nickname(shorthand, sys_role_id).or(member.nick.as_deref())
                 } else {   
                     member.nick.as_deref()
                 }    
@@ -66,18 +67,9 @@ pub(crate) async fn process_tts_msg(
                 // Fetch the full member object from Discord
                  m = guild_id.member(ctx, message.author.id).await?;
                 // Check roles from the freshly fetched data
-                if m.roles.contains(&ROLE_CHESHIRE) {
+                if let Some(sys_role_id) = returns_exact_role(&m) {
                     has_special_role = true;
-                    get_member_nickname(shorthand_search(&message.content), ROLE_CHESHIRE)
-                } else if m.roles.contains(&ROLE_LOST_SOULS) {
-                    has_special_role = true;
-                    get_member_nickname(shorthand_search(&message.content), ROLE_LOST_SOULS)
-                } else if m.roles.contains(&ROLE_HEARTS_QUEEN) {
-                    has_special_role = true;
-                    get_member_nickname(shorthand_search(&message.content), ROLE_HEARTS_QUEEN)
-                } else if m.roles.contains(&ROLE_DREAM_END) {
-                    has_special_role = true;
-                    get_member_nickname(shorthand_search(&message.content), ROLE_DREAM_END)
+                    get_member_nickname(shorthand, sys_role_id).or(m.nick.as_deref())
                 } else {
                     m.nick.as_deref()
                 }
