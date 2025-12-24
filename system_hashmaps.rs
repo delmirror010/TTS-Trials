@@ -63,6 +63,7 @@ pub fn returns_exact_role(member: &Member) -> Option<RoleId> {
          Some(ROLE_DREAM_END)
      } else {
          None
+     }
 }
 
 
