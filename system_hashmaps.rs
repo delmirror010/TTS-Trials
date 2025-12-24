@@ -51,3 +51,13 @@ pub fn shorthand_search(msg: &str) -> Option<&str> {
     Some(caps[0]) 
 }
     
+pub fn exact_role_check(m: member) {
+    if 
+}
+
+
+
+
+
+
+
